@@ -12,7 +12,7 @@
             flex-direction: column;
             height: 100vh;
             margin: 0;
-            background-color: #f0f0f0;
+            background-color: #00008b; /* Dark blue background */
         }
         #gameCanvas {
             border: 1px solid #000;
@@ -20,12 +20,20 @@
         #score {
             font-size: 24px;
             margin-bottom: 10px;
+            color: white; /* Make score text white */
+        }
+        #startButton {
+            margin-bottom: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
     <div id="score">Score: 0</div>
-    <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <button id="startButton">Start Game</button>
+    <canvas id="gameCanvas" width="800" height="800"></canvas>
     <script src="snake.js"></script>
 </body>
 </html>

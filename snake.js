@@ -3,26 +3,42 @@ const ctx = canvas.getContext("2d");
 
 const gridSize = 20;
 const tileCount = canvas.width / gridSize;
-let snake = [{ x: 10, y: 10 }];
-let apple = { x: 15, y: 15 };
-let dx = 1;
-let dy = 0;
-let score = 0;
-let changingDirection = false;
+let snake;
+let apple;
+let dx;
+let dy;
+let score;
+let changingDirection;
+let gameLoop;
 
 document.addEventListener("keydown", changeDirection);
+document.getElementById("startButton").addEventListener("click", startGame);
+
+function startGame() {
+  snake = [{ x: 20, y: 20 }];
+  apple = { x: 15, y: 15 };
+  dx = 1;
+  dy = 0;
+  score = 0;
+  changingDirection = false;
+  document.getElementById("score").innerHTML = "Score: " + score;
+
+  clearInterval(gameLoop);
+  gameLoop = setInterval(main, 100);
+}
 
 function main() {
-  if (gameOver()) return;
+  if (gameOver()) {
+    clearInterval(gameLoop);
+    alert("Game Over! Your score was " + score);
+    return;
+  }
 
   changingDirection = false;
-  setTimeout(function onTick() {
-    clearCanvas();
-    drawApple();
-    advanceSnake();
-    drawSnake();
-    main();
-  }, 100);
+  clearCanvas();
+  drawApple();
+  advanceSnake();
+  drawSnake();
 }
 
 function clearCanvas() {
@@ -104,10 +120,11 @@ function gameOver() {
 
   const hitLeftWall = snake[0].x < 0;
   const hitRightWall = snake[0].x >= tileCount;
-  const hitToptWall = snake[0].y < 0;
+  const hitTopWall = snake[0].y < 0;
   const hitBottomWall = snake[0].y >= tileCount;
 
-  return hitLeftWall || hitRightWall || hitToptWall || hitBottomWall;
+  return hitLeftWall || hitRightWall || hitTopWall || hitBottomWall;
 }
 
-main();
+// Initialize the game when the page loads
+startGame();
