@@ -1,3 +1,7 @@
+// Simple "snake" game, will be used to test AI models
+// Original code created with teh help of ChatGPT 4o
+// TOTALLY unoptimized and unmodular, but this gives
+// us a starting point for adding various AI code.
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
@@ -52,7 +56,10 @@ function drawSnake() {
     ctx.fillRect(part.x * gridSize, part.y * gridSize, gridSize, gridSize)
   );
 }
-
+// Keep adding a new "head" to the snake and deleting the trailing bit
+// of the tail, to make the snake move.
+// However, if we've just eaten an apple, don't delete the trailing bit
+// of the tail.
 function advanceSnake() {
   const head = { x: snake[0].x + dx, y: snake[0].y + dy };
   snake.unshift(head);
